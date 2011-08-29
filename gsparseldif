@@ -1,0 +1,27 @@
+#! /usr/bin/awk -f
+
+BEGIN {
+givenName = ""
+sn = ""
+mail = ""
+expired = ""
+printf("First, Last, Email\n----------------------\n");
+}
+/^givenName: / {givenName=$2}
+# /^sn: / {sn=$2" " $3}
+/^sn: / {sn=$2}
+/^mail: / {mail=$2}
+/^shadowExpire: / {expired=$2}
+/^dn: / {
+if (givenName !="" && expired == "1") printf("\033[1m\033[31m** EXPIRED **\033[0m\t")
+if(givenName != "") printf("%s %s, %s\n",givenName,sn,mail)
+givenName = ""
+sn = ""
+mail = ""
+expired=""
+}
+END {
+if (givenName !="" && expired == "1") printf("\033[1m\033[31m** EXPIRED **\033[0m\t")
+printf("%s %s, %s\n",givenName,sn,mail);
+}
+
