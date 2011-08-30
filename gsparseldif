@@ -23,6 +23,5 @@ expired=""
 }
 END {
 if (givenName !="" && expired < date && expired != "-1" && expired !="") printf("\033[1m\033[31m** EXPIRED **\033[0m\t")
-if(givenName != "") printf("%s %s, %s\n",givenName,sn,mail)
 printf("%s %s, %s\n",givenName,sn,mail);
 }
