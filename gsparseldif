@@ -22,7 +22,8 @@ BEGIN {
         else if (givenName !="" && expired < (date+60) && expired != "-1" && expired !="") printf("\033[33m** EXPIRING **\033[0m\t", expired - date)
         else if (givenName !="" && paid == "FALSE") printf("\033[31m** Not Paid **\033[0m\t")
         else if (givenName !="") printf("\t\t")
-        if(givenName != "") printf("%s %s, %s, %s\n",givenName,sn,studentNo,mail)
+        if(givenName != "" && studentNo != "") printf("%s %s, %s, %s\n",givenName,sn,studentNo,mail)
+        else if(givenName != "") printf("%s %s, %s\n",givenName,sn,mail)
 
         givenName = ""
         sn = ""
@@ -37,5 +38,6 @@ END {
         else if (givenName !="" && expired < (date+60) && expired != "-1" && expired !="") printf("\033[33m** EXPIRING **\033[0m\t", expired - date)
         else if (givenName !="" && paid == "FALSE") printf("\033[31m** Not Paid **\033[0m\t")
         else if (givenName !="") printf("\t\t")
-        if(givenName != "") printf("%s %s, %s, %s\n",givenName,sn,studentNo,mail)
+        if(givenName != "" && studentNo != "") printf("%s %s, %s, %s\n",givenName,sn,studentNo,mail)
+        else if(givenName != "") printf("%s %s, %s\n",givenName,sn,mail)
 }
