@@ -1,6 +1,11 @@
 BEGIN {
         "perl -e 'printf qq{%d\n}, time/86400;'" | getline date;
-        clearVars()
+        givenName = ""
+        sn = ""
+        mail = ""
+        expired = ""
+        paid = ""
+        studentNo = ""
 }
 
 /^givenName: / {givenName=$2}
@@ -13,8 +18,13 @@ BEGIN {
 /^dn: / {
 
         listUser()
-        clearVars()
 
+        givenName = ""
+        sn = ""
+        mail = ""
+        expired = ""
+        paid = ""
+        studentNo = ""
 }
 
 END {
@@ -29,14 +39,4 @@ function listUser()
         else if (givenName !="") printf("\t\t")
         if(givenName != "" && studentNo != "") printf("%s %s, %s, %s\n",givenName,sn,studentNo,mail)
         else if(givenName != "") printf("%s %s, %s\n",givenName,sn,mail)
-}
-
-function clearVars()
-{
-        givenName = ""
-        sn = ""
-        mail = ""
-        expired = ""
-        paid = ""
-        studentNo = ""
 }
