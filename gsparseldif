@@ -1,3 +1,5 @@
+#! /usr/bin/awk -f
+
 BEGIN {
         "perl -e 'printf qq{%d\n}, time/86400;'" | getline date;
         givenName = ""
@@ -16,8 +18,11 @@ BEGIN {
 /^hasPaid: / {paid=$2}
 /^studentNumber: / {studentNo=$2}
 /^dn: / {
-
-        listUser()
+        if (givenName !="" && expired < (date) && expired != "-1" && expired !="") printf("\033[1m\033[41m** EXPIRED **\033[0m\t")
+        else if (givenName !="" && expired < (date+60) && expired != "-1" && expired !="") printf("\033[33m** EXPIRING **\033[0m\t", expired - date)
+        else if (givenName !="" && paid == "FALSE") printf("\033[31m** Not Paid **\033[0m\t")
+        else if (givenName !="") printf("\t\t")
+        if(givenName != "") printf("%s %s, %s, %s\n",givenName,sn,studentNo,mail)
 
         givenName = ""
         sn = ""
@@ -28,15 +33,9 @@ BEGIN {
 }
 
 END {
-        listUser()
-}
-
-function listUser()
-{
         if (givenName !="" && expired < (date) && expired != "-1" && expired !="") printf("\033[1m\033[41m** EXPIRED **\033[0m\t")
         else if (givenName !="" && expired < (date+60) && expired != "-1" && expired !="") printf("\033[33m** EXPIRING **\033[0m\t", expired - date)
         else if (givenName !="" && paid == "FALSE") printf("\033[31m** Not Paid **\033[0m\t")
         else if (givenName !="") printf("\t\t")
-        if(givenName != "" && studentNo != "") printf("%s %s, %s, %s\n",givenName,sn,studentNo,mail)
-        else if(givenName != "") printf("%s %s, %s\n",givenName,sn,mail)
+        if(givenName != "") printf("%s %s, %s, %s\n",givenName,sn,studentNo,mail)
 }
