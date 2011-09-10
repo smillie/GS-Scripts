@@ -18,7 +18,7 @@ BEGIN {
 /^hasPaid: / {paid=$2}
 /^studentNumber: / {studentNo=$2}
 /^dn: / {
-        if (givenName !="" && expired == "-1") printf("\033[1m\033[41m** LOCKED **\033[0m\t")
+        if (givenName !="" && expired == "1") printf("\033[1m\033[41m** LOCKED **\033[0m\t")
         else if (givenName !="" && expired < (date) && expired != "-1" && expired !="") printf("\033[1m\033[41m** EXPIRED **\033[0m\t")
         else if (givenName !="" && expired < (date+60) && expired != "-1" && expired !="") printf("\033[33m** EXPIRING **\033[0m\t", expired - date)
         else if (givenName !="" && paid == "FALSE") printf("\033[31m** Not Paid **\033[0m\t")
