@@ -20,4 +20,6 @@ shadowLastChange: 10877
 shadowMax: 99999
 shadowWarning: 7
 mail: <ask>
+studentNumber: <ask>
+hasPaid: <ask>
 shadowExpire: 15623
