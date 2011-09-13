@@ -15,7 +15,7 @@ uidNumber: <uid>
 gidNumber: <gid>
 homeDirectory: <home>
 loginShell: <shell>
-gecos: <user>
+gecos: <first> <last>,,,
 shadowLastChange: 10877
 shadowMax: 99999
 shadowWarning: 7
