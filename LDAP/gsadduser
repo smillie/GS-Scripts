@@ -41,7 +41,7 @@ then
   _USER="$3"
 else
   _USER=$(echo ${_FIRST:0:1}$_LAST | awk '{print tolower($0)}')
- _COUNT=$(ldapsearch -xLLL -Hldap://localhost:1389 -bou=people,dc=geeksoc,dc=org uid=$_USER dn | wc -l)
+ _COUNT=$(ldapsearch -xLLL -bou=people,dc=geeksoc,dc=org uid=$_USER dn | wc -l)
 
   if [ $_COUNT != 0 ]
   then
