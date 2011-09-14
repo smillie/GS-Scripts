@@ -23,9 +23,9 @@
 #  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307,
 #  USA.
 
-if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ] || [ "$1" = "-h" ] || [ "$1" = "--help" ]
+if [ -z "$1" ] || [ -z "$2" ] || [ "$1" = "-h" ] || [ "$1" = "--help" ]
 then
-  echo "Usage : $0 <username> <firstname> <lastname>"
+  echo "Usage : $0 <firstname> <lastname> [username] "
   exit 1
 fi
 
@@ -33,11 +33,24 @@ fi
 _RUNTIMEFILE="/usr/local/lib/ldapscripts/gsruntime"
 . "$_RUNTIMEFILE"
 
-# Username = first argument
-_USER="$1"
-_FIRST="$2"
-_LAST="$3"
+_FIRST="$1"
+_LAST="$2"
 
+if [ -n "$3" ]
+then
+  _USER="$3"
+else
+  _USER=$(echo ${_FIRST:0:1}$_LAST | awk '{print tolower($0)}')
+ _COUNT=$(ldapsearch -xLLL -Hldap://localhost:1389 -bou=people,dc=geeksoc,dc=org uid=$_USER dn | wc -l)
+
+  if [ $_COUNT != 0 ]
+  then
+    echo "Non-unique username: please specify alternative."
+    exit 1
+  fi
+fi
+
+echo $_USER
 # User GID = second argument
 _GID=$(_grouptogid "members")
 [ -z "$_GID" ] && end_die "Cannot resolve group members to gid : not found"
