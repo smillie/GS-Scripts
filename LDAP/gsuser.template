@@ -21,5 +21,6 @@ shadowMax: 99999
 shadowWarning: 7
 mail: <ask>
 studentNumber: <ask>
-hasPaid: <ask>
+hasPaid: TRUE
+hasSignedTOS: TRUE
 shadowExpire: 15623
